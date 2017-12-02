@@ -3,9 +3,11 @@ Frontend for IOSR project
 
 Default port: 3000
 
-#Set API Gateway url in:
+# Set API Gateway
 	App.js -> apiURL	
 
-#Run
+# Run
+```
 	npm install
 	npm start
+```
