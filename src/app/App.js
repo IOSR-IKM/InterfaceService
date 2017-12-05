@@ -29,9 +29,16 @@ class App extends Component {
   }
 
   getShortenedURL() {
-    let query=this.state.apiURL+"?url="+this.state.url+"&persistent="+this.state.persistent
+    let query=this.state.apiURL+"?isPersistent="+this.state.persistent
 
-    fetch(query, {method: "POST"}) 
+    fetch(query, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        URL: this.state.url
+      })}) 
       .then(result=> {
         this.setState({
           shortened: result
@@ -43,11 +50,9 @@ class App extends Component {
     // TODO DEBUG
     if(this.state.shortened === '') {
       this.setState({
-        shortened: "cos nie tak"
+        shortened: "SERVER ERROR"
       })
     }
-    console.log(this.state.persistent)
-    console.log(this.state.url)
     console.log(query)
     console.log(this.state.shortened)
   }
