@@ -37,7 +37,7 @@ class App extends Component {
         'Accept': 'application/json',
         'Content-Type': 'application/json'},
       body: JSON.stringify({
-        URL: this.state.url
+        originalUrl: this.state.url
       })}) 
       .then(result=> {
         this.setState({
