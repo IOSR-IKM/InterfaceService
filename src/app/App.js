@@ -7,7 +7,8 @@ class App extends Component {
     super(props);
     this.state = {
       // SET HERE API GATEWAY URL!!!
-      apiURL: 'http://52.28.43.213:8080/',
+      apiURL: 'http://18.195.217.38:8080/',
+      // apiURL: 'http://localhost:8080/',
       url: '',
       persistent: false,
       shortened: '',
@@ -31,21 +32,23 @@ class App extends Component {
   getShortenedURL() {
     let query=this.state.apiURL+"?isPersistent="+this.state.persistent
 
-    fetch(query, {
+    let result = fetch(query, {
       method: "POST",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        originalUrl: this.state.url
-      })}) 
-      .then(result=> {
-        this.setState({
-          shortened: result
-        })
-      }, function(error) {
-          console.log(error.message)
-    });
+      body: this.state.url
+      }) 
+      .then(response=> {
+      	console.log(response);
+        return response.json()
+      }).then((data) => {
+      	console.log(data.shortcut)
+      	this.setState({
+      		shortened: this.state.apiURL + data.shortcut
+      	})
+      	return data
+      });
 
     // TODO DEBUG
     if(this.state.shortened === '') {
@@ -53,8 +56,9 @@ class App extends Component {
         shortened: "SERVER ERROR"
       })
     }
-    console.log(query)
-    console.log(this.state.shortened)
+
+    console.log("pls")
+    console.log(result.shortcut)
   }
 
   render() {
@@ -98,12 +102,12 @@ class App extends Component {
         </div>
 
         {this.state.shortened &&
-
-
           <div className ="result">
             <p>Your shortened URL:   {this.state.shortened}</p>
           </div>
         }
+
+
       </div>
     );
   }
