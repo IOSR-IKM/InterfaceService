@@ -7,7 +7,7 @@ class App extends Component {
     super(props);
     this.state = {
       // SET HERE API GATEWAY URL!!!
-      apiURL: 'http://localhost:8080/shortener',
+      apiURL: 'http://52.28.43.213:8080/',
       url: '',
       persistent: false,
       shortened: '',
